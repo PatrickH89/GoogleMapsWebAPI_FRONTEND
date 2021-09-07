@@ -1,0 +1,66 @@
+﻿@model AddressFormsModel
+
+<form asp-controller="Address" asp-action="Create">
+
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-8 col-lg-6 col-xl-5">
+            <div asp-validation-summary="ModelOnly">
+                <div class="alert alert-danger">
+                    <strong>Please correct the following errors:</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="Country" class="col-auto col-sm-3 col-md-3 col-lg-2 col-xl-2 col-form-label pl-sm"><b>Country:</b></label>
+        <div class="col-12 col-sm-9 col-md-5 col-lg-4 col-xl-3">
+            <input asp-for="Country" placeholder="Enter Country" class=" form-control" />
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="PostCode" class="col-auto col-sm-3 col-md-3 col-lg-2 col-xl-2 col-form-label"><b>Postcode:</b></label>
+        <div class="col-12 col-sm-9 col-md-5 col-lg-4 col-xl-3">
+            <input asp-for="PostCode" placeholder="Enter Postcode" class=" form-control" />
+            <span asp-validation-for="PostCode" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="City" class="col-auto col-sm-3 col-md-3 col-lg-2 col-xl-2 col-form-label"><b>City:</b></label>
+        <div class="col-12 col-sm-9 col-md-5 col-lg-4 col-xl-3">
+            <input asp-for="City" placeholder="Enter City" class=" form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="Street" class="col-auto col-sm-3 col-md-3 col-lg-2 col-xl-2 col-form-label"><b>Street:</b></label>
+        <div class="col-12 col-sm-9 col-md-5 col-lg-4 col-xl-3">
+            <input asp-for="Street" placeholder="Enter Street" class=" form-control" />
+            <span asp-validation-for="Street" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="StreetNumber" class="col-auto col-sm-3 col-md-3 col-lg-2 col-xl-2 col-form-label"><b>StreetNumber:</b></label>
+        <div class="col-12 col-sm-9 col-md-5 col-lg-4 col-xl-3">
+            <input asp-for="StreetNumber" placeholder="Enter Streetnumber" class=" form-control" />
+            <span asp-validation-for="StreetNumber" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @* Submit Button*@
+        <div class="col-sm-auto offset-sm-3 col-md-auto offset-md-3 col-lg-auto offset-lg-2 col-xl-auto offset-xl-2 mt-10 pr-min-sm-5 centered-xs">
+            <button type="submit" class="btn btn-primary col-12">Create Address</button>
+        </div>
+
+        @* Get back to all Addresses link *@
+        <div class="col-sm-auto col-md-auto col-lg-auto col-xl-auto mt-10 pl-min-sm-5 centered-xs">
+            <a href="/address/" class="btn btn-dark col-12">Go back</a>
+        </div>
+    </div>
+</form>

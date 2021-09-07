@@ -1,0 +1,12 @@
+﻿@model AddressFormsModel
+@{
+    ViewData["Title"] = "CreateAddress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <h2 class="centered-xs mt-4">Create Address</h2><br />
+    <partial name="~/Views/Partials/Forms/_createAddressForm.cshtml", new AddressFormsModel()/>
+
+</div>

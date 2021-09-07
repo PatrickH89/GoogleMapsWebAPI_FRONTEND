@@ -1,0 +1,135 @@
+﻿@model List<GoogleMapsWebAPI_Frontend.Models.AddressAPIModel>
+
+
+@{
+    ViewData["Title"] = "AddressList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    @* ROW 1 --------------------------------------------------------------------------------------------------------------------------------------
+        Message in Index when creation or update of Address was successfully *@
+    <div class="row col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto justify-content-center justify-conent-sm-center justify-content-md-start justify-content-lg-start justify-content-xl-start">
+        @if (TempData["AddressCreated"] != null && TempData["AddressCreated"] is bool)
+        {
+            <div class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Address created successfully!</strong>
+            </div>
+        }
+
+        @if (TempData["AddressUpdated"] != null && TempData["AddressUpdated"] is bool)
+        {
+            <div class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Address updated successfully!</strong>
+            </div>
+        }
+    </div>
+
+    @*  ROW 2  ---------------------------------------------------------------------------------------------------------------------------------------*@
+    <div class="row justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">
+        <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto mt-10">
+            @* Header *@
+            <h2>Addresses of WebApi</h2>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-auto col-lg-auto col-xl-auto mt-10">
+            @* Search field for Address by Id *@
+            <form asp-controller="Address" asp-action="Select">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for Id" name="id">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if (Model == null)
+    {
+        <div class="row col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto justify-content-center justify-conent-sm-center justify-content-md-start justify-content-lg-start justify-content-xl-start mt-10">
+            @* Invalid Id entered alert *@
+            <div class="alert alert-danger col-12 col-sm-12 col-md-auto col-lg-auto col-xl-auto">
+                <strong>Invalid Value for Id. Try again or go back.</strong>
+            </div>
+        </div>
+
+        <div class="row col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto justify-content-center justify-conent-sm-center justify-content-md-start justify-content-lg-start justify-content-xl-start">
+            @* Get back to all Addresses link *@
+            <a href="/address/" class="btn btn-dark col-12 col-sm-12 col-md-auto col-lg-auto col-xl-auto">Go back</a>
+        </div>
+    }
+    else
+    {
+        @* ROW 3 ---------------------------------------------------------------------------------------------------------------------------------------------------
+            Table *@
+        <div class="table-responsive mt-10">
+            <table class="table table-hover" id="addressTable">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Postcode</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Street</th>
+                        <th scope="col">Streetnumber</th>
+                        <th scope="col">Latitude</th>
+                        <th scope="col">Longitude</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var address in Model)
+                    {
+                        @* Properties for google maps saved in data-prop *@
+                        <tr data-lat="@address.Latitude.ToString().Replace(",", ".")" data-lng="@address.Longitude.ToString().Replace(",", ".")"
+                            data-id="@address.Id" data-country="@address.Country" data-postcode="@address.PostCode" data-city="@address.City" data-street="@address.Street"
+                            data-streetnumber="@address.StreetNumber" class="tableRow">
+
+                            @* Properties from AddressApiModel *@
+                            <th class="text-nowrap" scope="row">@address.Id</th>
+                            <td class="text-nowrap">@address.Country</td>
+                            <td class="text-nowrap">@address.PostCode</td>
+                            <td class="text-nowrap">@address.City</td>
+                            <td class="text-nowrap">@address.Street</td>
+                            <td class="text-nowrap">@address.StreetNumber</td>
+                            <td class="text-nowrap">@address.Latitude</td>
+                            <td class="text-nowrap">@address.Longitude</td>
+
+                            @* Update Address link *@
+                            <td>
+                                <a href="/address/updateaddress?id=@address.Id" class="btn btn-success p-del-up">Update</a>
+                            </td>
+
+                            @* Delete Address button *@
+                            <td>
+                                <form asp-controller="Address" asp-action="Delete">
+                                    <input type="hidden" name="id" value="@address.Id" />
+                                    <button type="submit" class="btn btn-danger p-del-up">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @* ROW 4 ----------------------------------------------------------------------------------------------------------------------------------------------------- *@
+        <div class="row">
+            <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto mt-10 pr-md-1 centered-xs-sm">
+                @* Add Address link *@
+                <a href="/address/createaddress" class="btn btn-primary col-12 col-sm-12 col-md-auto col-lg-auto col-xl-auto">Add new Address</a>
+            </div>
+            <div class="col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto mt-10 pl-md-1 centered-xs-sm">
+                @* Get back to all Addresses link *@
+                <a href="/address/" class="btn btn-dark col-12 col-sm-12 col-md-auto col-lg-auto col-xl-auto">Display All Addresses</a>
+            </div>
+        </div>
+    }
+
+</div>
